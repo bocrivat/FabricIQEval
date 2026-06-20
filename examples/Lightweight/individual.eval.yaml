@@ -1,0 +1,22 @@
+suite: RetailPulse Individual Questions
+type: individual
+description: >
+  Individual questions about the Retail Pulse Power BI report. Each question is executed
+  in a fresh, isolated Copilot session with no prior context.
+defaults:
+  pass_threshold: 70
+
+questions:
+  - id: q-find-workspace
+    question: "Find the workspace FabricIQEavalSample"
+    expected: "Found it, ID:  e9fb55c2-dddb-4f40-9767-888542110087."
+    assertions:
+      - "Must include this workspace ID:  e9fb55c2-dddb-4f40-9767-888542110087"
+    tags: [workspace, find]
+
+  - id: q-find-report
+    question: "Find me the report named Retail Pulse"
+    expected: "Report: Retail Pulse, ID: c5c2fbc8-ce42-4ebf-9dd1-20c19c3f62ec"
+    assertions:
+      - "Must include this report ID: c5c2fbc8-ce42-4ebf-9dd1-20c19c3f62ec"
+    tags: [report, find]

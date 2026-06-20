@@ -1,0 +1,72 @@
+suite: RetailPulse Revenue Drilldown
+type: sequence
+description: >
+  A multi-turn conversation that opens the RetailPulse report and progressively drills
+  into revenue by product category. All turns run in ONE shared session, in order, so
+  each turn may rely on context established by earlier turns.
+defaults:
+  pass_threshold: 70
+
+turns:
+  - id: q-find-workspace
+    question: "Find the workspace FabricIQEvalSample and show me the ID"
+    expected: "Found it, ID:  e9fb55c2-dddb-4f40-9767-888542110087."
+    assertions:
+      - "Must include this workspace ID:  e9fb55c2-dddb-4f40-9767-888542110087"
+    tags: [workspace, find]
+
+  - id: q-find-report
+    question: "Find me the report named Retail Pulse in the same workspace and show me the ID"
+    expected: "Report: Retail Pulse, ID: c5c2fbc8-ce42-4ebf-9dd1-20c19c3f62ec"
+    assertions:
+      - "Must include this report ID: c5c2fbc8-ce42-4ebf-9dd1-20c19c3f62ec"
+    tags: [report, find]
+
+  - id: q-count-visuals
+    question: "How many visuals are in the report?"
+    expected: "The report contains 9 visuals across one page."
+    assertions:
+      - "Must include 9"
+    tags: [report, find]
+
+  - id: q-visual-query
+    question: "What is the Gross Margin & from this report?"
+    expected: >
+      The Gross Margin % value from the Retail Pulse semantic model is 24.78% (0.2478).
+      
+      This is the overall/total value with no filters applied.
+      grounded in the report's data; if the value cannot be read from the definition, it
+      should say so rather than fabricate a number.
+    assertions:
+      - "Must include the value of 24.78%"
+    pass_threshold: 75
+    tags: [drilldown, insight]
+
+  - id: q-visual-query-break-down
+    question: "Break this down by Region"
+    expected: >
+     Gross Margin % by Region:
+     ┌─────────┬────────────────┐
+     │ Region  │ Gross Margin % │
+     ├─────────┼────────────────┤
+     │ Central │ 24.68%         │
+     ├─────────┼────────────────┤
+     │ East    │ 24.67%         │
+     ├─────────┼────────────────┤
+     │ Midwest │ 24.89%         │
+     ├─────────┼────────────────┤
+     │ North   │ 24.67%         │
+     ├─────────┼────────────────┤
+     │ South   │ 24.90%         │
+     ├─────────┼────────────────┤
+     │ West    │ 24.90%         │
+     └─────────┴────────────────┘
+    assertions:
+      - "Value for Central is 24.68%"
+      - "Value for East is 24.67%"
+      - "Value for Midwest is 24.89%"
+      - "Value for North is 24.67%"
+      - "Value for South is 24.90%"
+      - "Value for West is 24.90%"
+    pass_threshold: 75
+    tags: [drilldown, insight]

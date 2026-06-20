@@ -1,0 +1,52 @@
+{
+  "run": {
+    "timestamp": "2026-06-20T06:44:42",
+    "input_folder": "C:\\Work\\CLIWorkFolder\\evalFolder\\framework\\my-evaluation-suites\\Lightweight",
+    "model": "GitHub Copilot CLI (general-purpose answering sub-agents)",
+    "files_evaluated": ["individual.eval.yaml"]
+  },
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "average_score": 91.5
+  },
+  "results": [
+    {
+      "suite": "RetailPulse Individual Questions",
+      "type": "individual",
+      "file": "individual.eval.yaml",
+      "id": "q-find-workspace",
+      "turn_index": 0,
+      "question": "Find the workspace FabricIQEavalSample",
+      "expected": "Found it, ID:  e9fb55c2-dddb-4f40-9767-888542110087.",
+      "actual": "Found workspace: Name FabricIQEvalSample, ID e9fb55c2-dddb-4f40-9767-888542110087. Note: the actual workspace name is FabricIQEvalSample (not FabricIQEavalSample).",
+      "score": 95,
+      "pass_threshold": 70,
+      "passed": true,
+      "rationale": "Returns the exact expected workspace ID and correctly resolves the misspelled workspace name to FabricIQEvalSample. Minor deduction for the cosmetic typo note; the grounded ID is fully correct.",
+      "assertions": [
+        { "text": "Must include this workspace ID:  e9fb55c2-dddb-4f40-9767-888542110087", "passed": true }
+      ],
+      "error": null
+    },
+    {
+      "suite": "RetailPulse Individual Questions",
+      "type": "individual",
+      "file": "individual.eval.yaml",
+      "id": "q-find-report",
+      "turn_index": 0,
+      "question": "Find me the report named Retail Pulse",
+      "expected": "Report: Retail Pulse, ID: c5c2fbc8-ce42-4ebf-9dd1-20c19c3f62ec",
+      "actual": "Found 2 exact reports named Retail Pulse in workspace FabricIQEvalSample: ID c5c2fbc8-ce42-4ebf-9dd1-20c19c3f62ec and ID 6f283e0f-4af3-4f08-97da-48f61467b446.",
+      "score": 88,
+      "pass_threshold": 70,
+      "passed": true,
+      "rationale": "Includes the exact expected report ID and is grounded in real data. Slight deduction because it returns a second matching report ID, introducing ambiguity beyond the single expected answer.",
+      "assertions": [
+        { "text": "Must include this report ID: c5c2fbc8-ce42-4ebf-9dd1-20c19c3f62ec", "passed": true }
+      ],
+      "error": null
+    }
+  ]
+}

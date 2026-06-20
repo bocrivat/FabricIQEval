@@ -1,0 +1,147 @@
+{
+  "run": {
+    "timestamp": "2026-06-20T06:41:36",
+    "input_folder": "C:\\Work\\CLIWorkFolder\\evalFolder\\framework\\my-evaluation-suites\\Lightweight",
+    "model": "GitHub Copilot CLI (general-purpose answering sub-agents)",
+    "files_evaluated": ["individual.eval.yaml", "conversation.eval.yaml"]
+  },
+  "summary": {
+    "total": 7,
+    "passed": 6,
+    "failed": 1,
+    "average_score": 82.3
+  },
+  "results": [
+    {
+      "suite": "RetailPulse Individual Questions",
+      "type": "individual",
+      "file": "individual.eval.yaml",
+      "id": "q-find-workspace",
+      "turn_index": 0,
+      "question": "Find the workspace FabricIQEavalSample",
+      "expected": "Found it, ID:  e9fb55c2-dddb-4f40-9767-888542110087.",
+      "actual": "Found workspace: FabricIQEvalSample. Workspace ID: e9fb55c2-dddb-4f40-9767-888542110087. Did not find an exact 'FabricIQEavalSample' match (the question contains a typo).",
+      "score": 95,
+      "pass_threshold": 70,
+      "passed": true,
+      "rationale": "Returns the exact expected workspace ID and correctly resolves the (mis-spelled) workspace name. Minor deduction for the cosmetic note about the typo; the grounded ID is correct.",
+      "assertions": [
+        { "text": "Must include this workspace ID:  e9fb55c2-dddb-4f40-9767-888542110087", "passed": true }
+      ],
+      "error": null
+    },
+    {
+      "suite": "RetailPulse Individual Questions",
+      "type": "individual",
+      "file": "individual.eval.yaml",
+      "id": "q-find-report",
+      "turn_index": 0,
+      "question": "Find me the report named Retail Pulse",
+      "expected": "Report: Retail Pulse, ID: c5c2fbc8-ce42-4ebf-9dd1-20c19c3f62ec",
+      "actual": "Found two exact reports named Retail Pulse in workspace FabricIQEvalSample: Report ID c5c2fbc8-ce42-4ebf-9dd1-20c19c3f62ec and Report ID 6f283e0f-4af3-4f08-97da-48f61467b446.",
+      "score": 88,
+      "pass_threshold": 70,
+      "passed": true,
+      "rationale": "Includes the exact expected report ID and is grounded in real data. Slight deduction because it returns a second matching report ID, introducing ambiguity beyond the single expected answer.",
+      "assertions": [
+        { "text": "Must include this report ID: c5c2fbc8-ce42-4ebf-9dd1-20c19c3f62ec", "passed": true }
+      ],
+      "error": null
+    },
+    {
+      "suite": "RetailPulse Revenue Drilldown",
+      "type": "sequence",
+      "file": "conversation.eval.yaml",
+      "id": "q-find-workspace",
+      "turn_index": 1,
+      "question": "Find the workspace FabricIQEvalSample and show me the ID",
+      "expected": "Found it, ID:  e9fb55c2-dddb-4f40-9767-888542110087.",
+      "actual": "FabricIQEvalSample workspace ID: E9FB55C2-DDDB-4F40-9767-888542110087",
+      "score": 95,
+      "pass_threshold": 70,
+      "passed": true,
+      "rationale": "Returns the exact expected workspace ID (case-insensitive match). Fully correct and grounded.",
+      "assertions": [
+        { "text": "Must include this workspace ID:  e9fb55c2-dddb-4f40-9767-888542110087", "passed": true }
+      ],
+      "error": null
+    },
+    {
+      "suite": "RetailPulse Revenue Drilldown",
+      "type": "sequence",
+      "file": "conversation.eval.yaml",
+      "id": "q-find-report",
+      "turn_index": 2,
+      "question": "Find me the report named Retail Pulse in the same workspace and show me the ID",
+      "expected": "Report: Retail Pulse, ID: c5c2fbc8-ce42-4ebf-9dd1-20c19c3f62ec",
+      "actual": "Retail Pulse report ID: c5c2fbc8-ce42-4ebf-9dd1-20c19c3f62ec",
+      "score": 95,
+      "pass_threshold": 70,
+      "passed": true,
+      "rationale": "Returns the exact expected report ID, correctly using the workspace context established in the prior turn.",
+      "assertions": [
+        { "text": "Must include this report ID: c5c2fbc8-ce42-4ebf-9dd1-20c19c3f62ec", "passed": true }
+      ],
+      "error": null
+    },
+    {
+      "suite": "RetailPulse Revenue Drilldown",
+      "type": "sequence",
+      "file": "conversation.eval.yaml",
+      "id": "q-count-visuals",
+      "turn_index": 3,
+      "question": "How many visuals are in the report?",
+      "expected": "The report contains 16 visuals across one page.",
+      "actual": "The Retail Pulse report has 9 visuals.",
+      "score": 10,
+      "pass_threshold": 70,
+      "passed": false,
+      "rationale": "Wrong count: the answer states 9 visuals while the expected answer is 16. The required assertion is not satisfied.",
+      "assertions": [
+        { "text": "Must include 16", "passed": false }
+      ],
+      "error": null
+    },
+    {
+      "suite": "RetailPulse Revenue Drilldown",
+      "type": "sequence",
+      "file": "conversation.eval.yaml",
+      "id": "q-visual-query",
+      "turn_index": 4,
+      "question": "What is the Gross Margin % from this report?",
+      "expected": "The Gross Margin % value from the Retail Pulse semantic model is 24.78% (0.2478). This is the overall/total value with no filters applied.",
+      "actual": "Gross Margin % is 24.78%.",
+      "score": 95,
+      "pass_threshold": 75,
+      "passed": true,
+      "rationale": "Matches the expected overall Gross Margin % of 24.78% exactly. Concise but correct and grounded.",
+      "assertions": [
+        { "text": "Must include the value of 24.78%", "passed": true }
+      ],
+      "error": null
+    },
+    {
+      "suite": "RetailPulse Revenue Drilldown",
+      "type": "sequence",
+      "file": "conversation.eval.yaml",
+      "id": "q-visual-query-break-down",
+      "turn_index": 5,
+      "question": "Break this down by Region",
+      "expected": "Gross Margin % by Region: Central 24.68%, East 24.67%, Midwest 24.89%, North 24.67%, South 24.90%, West 24.90%.",
+      "actual": "Gross Margin % by Region: South 24.90%, West 24.90%, Midwest 24.89%, Central 24.68%, North 24.67%, East 24.67%.",
+      "score": 98,
+      "pass_threshold": 75,
+      "passed": true,
+      "rationale": "All six regional Gross Margin % values match the expected figures exactly (ordering differs but every value is correct). Correctly carries forward the Gross Margin context from the prior turn.",
+      "assertions": [
+        { "text": "Value for Central is 24.68%", "passed": true },
+        { "text": "Value for East is 24.67%", "passed": true },
+        { "text": "Value for Midwest is 24.89%", "passed": true },
+        { "text": "Value for North is 24.67%", "passed": true },
+        { "text": "Value for South is 24.90%", "passed": true },
+        { "text": "Value for West is 24.90%", "passed": true }
+      ],
+      "error": null
+    }
+  ]
+}

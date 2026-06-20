@@ -1,0 +1,105 @@
+suite: ZHN Dashboard Capacity & LOS Drilldown
+type: sequence
+description: >
+  A single multi-turn conversation that opens the "ZHN-Dashboard_update" Power BI report
+  (workspace "ZHN-Operations", semantic model sm_hospital_operations) and progressively drills
+  from headline KPIs into bed occupancy by hospital, into the busiest hospital's units, and
+  into emergency-department wait times. All turns run in ONE shared session, in order, so each
+  turn may rely on context established by earlier turns. Every expected value was grounded by
+  querying the live report.
+defaults:
+  pass_threshold: 70
+
+turns:
+  - id: t1-find-report
+    question: >
+      Find the Power BI report named "ZHN-Dashboard_update" in the workspace "ZHN-Operations"
+      and tell me its report ID.
+    expected: >
+      Identifies the report and reports its ID f2184c01-51d2-49f5-a1ba-c9c9976518a9 in the
+      ZHN-Operations workspace (workspace ID 17ef0e11-e0bc-4745-a9bf-3a9b140ee203).
+    assertions:
+      - "Must include this report ID: f2184c01-51d2-49f5-a1ba-c9c9976518a9"
+      - "Identifies the workspace as ZHN-Operations"
+    tags: [find, structure]
+
+  - id: t2-pages-overview
+    question: >
+      For that report, how many pages does it have and what are their titles? Base your answer
+      on the actual report definition.
+    expected: >
+      The report has 4 pages: "Hospital Capacity & LOS Dashboard" (the active page),
+      "Duplicate of Page 1", a second "Hospital Capacity & LOS Dashboard", and "Page 1".
+    assertions:
+      - "States the report has 4 pages"
+      - "Names at least the 'Hospital Capacity & LOS Dashboard' page"
+    tags: [structure, pages]
+
+  - id: t3-headline-kpis
+    question: >
+      Summarize the headline KPI cards shown on the dashboard (bed occupancy, length of stay,
+      encounters, ED wait, nurse-patient ratio, and patient satisfaction) with their current
+      values. Use only data from this report.
+    expected: >
+      Bed Occupancy Rate ~94.2%, Avg Length of Stay ~0.64 days, Total Encounters 100,
+      Average ED Wait ~26 minutes, Average Nurse-Patient Ratio ~0.05, and Average Satisfaction
+      Score ~4.4 / 5.
+    assertions:
+      - "States bed occupancy near 94% (≈0.94)"
+      - "States total encounters of 100"
+      - "States average ED wait close to 26 minutes"
+      - "States average satisfaction close to 4.4 out of 5"
+    tags: [kpi, overview]
+
+  - id: t4-occupancy-total
+    question: "What is the overall bed occupancy rate on this dashboard?"
+    expected: >
+      Overall Bed Occupancy Rate is about 94.2% (0.9416), matching the bed-occupancy card.
+    assertions:
+      - "States overall bed occupancy of approximately 94% (≈0.94)"
+    pass_threshold: 75
+    tags: [occupancy, kpi]
+
+  - id: t5-occupancy-by-hospital
+    question: "Now break that bed occupancy rate down by hospital. Which hospital is the most occupied?"
+    expected: >
+      By hospital: North Campus ~96.2% (highest), City General ~95.9%, West Tower ~90.3%.
+      North Campus is the most occupied.
+    assertions:
+      - "Identifies North Campus as the most occupied hospital"
+      - "Gives North Campus occupancy near 96% and West Tower near 90%"
+      - "Builds on the bed occupancy metric from the previous turn"
+    tags: [occupancy, drilldown, hospital]
+
+  - id: t6-drill-north-units
+    question: "Drill into that hospital and show bed occupancy by unit. Which unit is fully occupied?"
+    expected: >
+      For North Campus by unit: ED is at 100% occupancy (fully occupied, 0 available beds),
+      MedSurg ~98.2%, ICU ~96%, Oncology ~87.1%. The ED unit is fully occupied.
+    assertions:
+      - "Identifies the ED unit as fully occupied (100%)"
+      - "Scopes the breakdown to North Campus from the previous turn"
+      - "Lists units such as MedSurg, ICU, and Oncology with lower occupancy"
+    pass_threshold: 75
+    tags: [occupancy, drilldown, unit]
+
+  - id: t7-ed-wait-by-hospital
+    question: >
+      Switching to emergency-department wait times: which hospital has the longest average ED
+      wait, and what is it?
+    expected: >
+      North Campus has the longest average ED wait at about 30.5 minutes, ahead of West Tower
+      (~24.4 min) and City General (~23.3 min). The report-wide average ED wait is ~26 minutes.
+    assertions:
+      - "Identifies North Campus as having the longest average ED wait"
+      - "States North Campus ED wait close to 30 minutes (≈30.5)"
+    tags: [ed-wait, drilldown, hospital]
+
+  - id: t8-encounters-los
+    question: "Finally, what are the total encounters and the average length of stay reported here?"
+    expected: >
+      Total Encounters is 100 and Average Length of Stay is about 0.64 days.
+    assertions:
+      - "States total encounters of 100"
+      - "States average length of stay of approximately 0.64 days"
+    tags: [encounters, los, kpi]

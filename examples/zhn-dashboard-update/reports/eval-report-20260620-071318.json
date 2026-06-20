@@ -1,0 +1,171 @@
+{
+  "run": {
+    "timestamp": "2026-06-20T07:13:18",
+    "input_folder": "my-evaluation-suites\\zhn-dashboard-update",
+    "model": "GitHub Copilot CLI (FabricIQ answering sub-agent)",
+    "files_evaluated": ["seq-capacity-drilldown.eval.yaml"]
+  },
+  "summary": {
+    "total": 8,
+    "passed": 8,
+    "failed": 0,
+    "average_score": 97.5
+  },
+  "results": [
+    {
+      "suite": "ZHN Dashboard Capacity & LOS Drilldown",
+      "type": "sequence",
+      "file": "seq-capacity-drilldown.eval.yaml",
+      "id": "t1-find-report",
+      "turn_index": 1,
+      "question": "Find the Power BI report named \"ZHN-Dashboard_update\" in the workspace \"ZHN-Operations\" and tell me its report ID.",
+      "expected": "Identifies the report and reports its ID f2184c01-51d2-49f5-a1ba-c9c9976518a9 in the ZHN-Operations workspace (workspace ID 17ef0e11-e0bc-4745-a9bf-3a9b140ee203).",
+      "actual": "Found \"ZHN-Dashboard_update\" in the ZHN-Operations workspace. Report ID: f2184c01-51d2-49f5-a1ba-c9c9976518a9.",
+      "score": 95,
+      "pass_threshold": 70,
+      "passed": true,
+      "rationale": "Reports the exact correct report ID and correctly names the ZHN-Operations workspace. Did not state the workspace GUID, but that was not required by the assertions.",
+      "assertions": [
+        { "text": "Must include this report ID: f2184c01-51d2-49f5-a1ba-c9c9976518a9", "passed": true },
+        { "text": "Identifies the workspace as ZHN-Operations", "passed": true }
+      ],
+      "error": null
+    },
+    {
+      "suite": "ZHN Dashboard Capacity & LOS Drilldown",
+      "type": "sequence",
+      "file": "seq-capacity-drilldown.eval.yaml",
+      "id": "t2-pages-overview",
+      "turn_index": 2,
+      "question": "For that report, how many pages does it have and what are their titles? Base your answer on the actual report definition.",
+      "expected": "The report has 4 pages: \"Hospital Capacity & LOS Dashboard\" (the active page), \"Duplicate of Page 1\", a second \"Hospital Capacity & LOS Dashboard\", and \"Page 1\".",
+      "actual": "Lists 4 pages: \"Hospital Capacity & LOS Dashboard\", \"Duplicate of Page 1\", \"Hospital Capacity & LOS Dashboard\", \"Page 1\"; notes two pages share the title.",
+      "score": 100,
+      "pass_threshold": 70,
+      "passed": true,
+      "rationale": "Exactly matches the expected page count and all four titles, including the duplicate-title detail.",
+      "assertions": [
+        { "text": "States the report has 4 pages", "passed": true },
+        { "text": "Names at least the 'Hospital Capacity & LOS Dashboard' page", "passed": true }
+      ],
+      "error": null
+    },
+    {
+      "suite": "ZHN Dashboard Capacity & LOS Drilldown",
+      "type": "sequence",
+      "file": "seq-capacity-drilldown.eval.yaml",
+      "id": "t3-headline-kpis",
+      "turn_index": 3,
+      "question": "Summarize the headline KPI cards shown on the dashboard (bed occupancy, length of stay, encounters, ED wait, nurse-patient ratio, and patient satisfaction) with their current values. Use only data from this report.",
+      "expected": "Bed Occupancy Rate ~94.2%, Avg Length of Stay ~0.64 days, Total Encounters 100, Average ED Wait ~26 minutes, Average Nurse-Patient Ratio ~0.05, and Average Satisfaction Score ~4.4 / 5.",
+      "actual": "Bed Occupancy 94.2%, Avg LOS 0.6 days, Total Encounters 100, Average ED Wait 26 min, Nurse-Patient Ratio 0.05, Patient Satisfaction 4.4 / 5.",
+      "score": 95,
+      "pass_threshold": 70,
+      "passed": true,
+      "rationale": "All six KPIs reported and matching expected values; LOS shown as 0.6 (rounded from 0.64) is a minor precision loss but within tolerance.",
+      "assertions": [
+        { "text": "States bed occupancy near 94% (\u22480.94)", "passed": true },
+        { "text": "States total encounters of 100", "passed": true },
+        { "text": "States average ED wait close to 26 minutes", "passed": true },
+        { "text": "States average satisfaction close to 4.4 out of 5", "passed": true }
+      ],
+      "error": null
+    },
+    {
+      "suite": "ZHN Dashboard Capacity & LOS Drilldown",
+      "type": "sequence",
+      "file": "seq-capacity-drilldown.eval.yaml",
+      "id": "t4-occupancy-total",
+      "turn_index": 4,
+      "question": "What is the overall bed occupancy rate on this dashboard?",
+      "expected": "Overall Bed Occupancy Rate is about 94.2% (0.9416), matching the bed-occupancy card.",
+      "actual": "The overall bed occupancy rate is 94.2%.",
+      "score": 100,
+      "pass_threshold": 75,
+      "passed": true,
+      "rationale": "Matches the expected overall occupancy figure exactly.",
+      "assertions": [
+        { "text": "States overall bed occupancy of approximately 94% (\u22480.94)", "passed": true }
+      ],
+      "error": null
+    },
+    {
+      "suite": "ZHN Dashboard Capacity & LOS Drilldown",
+      "type": "sequence",
+      "file": "seq-capacity-drilldown.eval.yaml",
+      "id": "t5-occupancy-by-hospital",
+      "turn_index": 5,
+      "question": "Now break that bed occupancy rate down by hospital. Which hospital is the most occupied?",
+      "expected": "By hospital: North Campus ~96.2% (highest), City General ~95.9%, West Tower ~90.3%. North Campus is the most occupied.",
+      "actual": "North Campus 96.2% (most occupied), City General 95.9%, West Tower 90.3%.",
+      "score": 100,
+      "pass_threshold": 70,
+      "passed": true,
+      "rationale": "Correct ranking and per-hospital values exactly matching expected; builds on the prior occupancy metric.",
+      "assertions": [
+        { "text": "Identifies North Campus as the most occupied hospital", "passed": true },
+        { "text": "Gives North Campus occupancy near 96% and West Tower near 90%", "passed": true },
+        { "text": "Builds on the bed occupancy metric from the previous turn", "passed": true }
+      ],
+      "error": null
+    },
+    {
+      "suite": "ZHN Dashboard Capacity & LOS Drilldown",
+      "type": "sequence",
+      "file": "seq-capacity-drilldown.eval.yaml",
+      "id": "t6-drill-north-units",
+      "turn_index": 6,
+      "question": "Drill into that hospital and show bed occupancy by unit. Which unit is fully occupied?",
+      "expected": "For North Campus by unit: ED is at 100% occupancy (fully occupied, 0 available beds), MedSurg ~98.2%, ICU ~96%, Oncology ~87.1%. The ED unit is fully occupied.",
+      "actual": "North Campus by unit: ED 100% (fully occupied), MedSurg 98.2%, ICU 96.0%, Oncology 87.1%.",
+      "score": 100,
+      "pass_threshold": 75,
+      "passed": true,
+      "rationale": "Correctly scoped to North Campus, identifies ED at 100%, and lists the other units with matching values.",
+      "assertions": [
+        { "text": "Identifies the ED unit as fully occupied (100%)", "passed": true },
+        { "text": "Scopes the breakdown to North Campus from the previous turn", "passed": true },
+        { "text": "Lists units such as MedSurg, ICU, and Oncology with lower occupancy", "passed": true }
+      ],
+      "error": null
+    },
+    {
+      "suite": "ZHN Dashboard Capacity & LOS Drilldown",
+      "type": "sequence",
+      "file": "seq-capacity-drilldown.eval.yaml",
+      "id": "t7-ed-wait-by-hospital",
+      "turn_index": 7,
+      "question": "Switching to emergency-department wait times: which hospital has the longest average ED wait, and what is it?",
+      "expected": "North Campus has the longest average ED wait at about 30.5 minutes, ahead of West Tower (~24.4 min) and City General (~23.3 min). The report-wide average ED wait is ~26 minutes.",
+      "actual": "North Campus 30.5 min (longest), West Tower 24.4 min, City General 23.3 min.",
+      "score": 100,
+      "pass_threshold": 70,
+      "passed": true,
+      "rationale": "Identifies North Campus as the longest ED wait at 30.5 minutes with matching values for the other hospitals.",
+      "assertions": [
+        { "text": "Identifies North Campus as having the longest average ED wait", "passed": true },
+        { "text": "States North Campus ED wait close to 30 minutes (\u224830.5)", "passed": true }
+      ],
+      "error": null
+    },
+    {
+      "suite": "ZHN Dashboard Capacity & LOS Drilldown",
+      "type": "sequence",
+      "file": "seq-capacity-drilldown.eval.yaml",
+      "id": "t8-encounters-los",
+      "turn_index": 8,
+      "question": "Finally, what are the total encounters and the average length of stay reported here?",
+      "expected": "Total Encounters is 100 and Average Length of Stay is about 0.64 days.",
+      "actual": "Total Encounters: 100; Average Length of Stay: 0.6 days.",
+      "score": 90,
+      "pass_threshold": 70,
+      "passed": true,
+      "rationale": "Total encounters exactly correct; LOS reported as 0.6 days is rounded from the expected 0.64 - close enough to satisfy the \"approximately\" assertion but with minor precision loss.",
+      "assertions": [
+        { "text": "States total encounters of 100", "passed": true },
+        { "text": "States average length of stay of approximately 0.64 days", "passed": true }
+      ],
+      "error": null
+    }
+  ]
+}
