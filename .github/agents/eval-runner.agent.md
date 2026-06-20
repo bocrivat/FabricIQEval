@@ -1,5 +1,5 @@
 ---
-description: "Use this agent when the user asks to run, execute, or score an evaluation/validation of Copilot CLI answers against a folder of authored questions and expected answers.\n\nTrigger phrases include:\n- 'run an evaluation on <folder>'\n- 'evaluate the questions in <folder>'\n- 'run the eval set in <folder>'\n- 'validate Copilot against <folder>'\n- 'score the answers for <folder>'\n\nExamples:\n- User says 'Run an evaluation on examples\\retailpulse-eval' → invoke this agent to discover the *.eval.yaml files, execute the questions, judge the answers, and write a timestamped report.\n- User says 'Evaluate my questions folder and tell me what failed' → invoke this agent to run the suite and summarize pass/fail results.\n- User says 'Validate Copilot answers for the RetailPulse eval set' → invoke this agent to run individual + sequence evals and produce a report."
+description: "Use this agent when the user asks to run, execute, or score an evaluation/validation of Copilot CLI answers against a folder of authored questions and expected answers.\n\nTrigger phrases include:\n- 'run an evaluation on <folder>'\n- 'evaluate the questions in <folder>'\n- 'run the eval set in <folder>'\n- 'validate Copilot against <folder>'\n- 'score the answers for <folder>'\n\nExamples:\n- User says 'Run an evaluation on examples\\Lightweight' → invoke this agent to discover the *.eval.yaml files, execute the questions, judge the answers, and write a timestamped report.\n- User says 'Evaluate my questions folder and tell me what failed' → invoke this agent to run the suite and summarize pass/fail results.\n- User says 'Validate Copilot answers for the RetailPulse eval set' → invoke this agent to run individual + sequence evals and produce a report."
 name: eval-runner
 ---
 
@@ -16,7 +16,7 @@ which tools the answering sub-agent uses.
 
 ### Extra run context
 The user's invocation may carry **extra context beyond the folder path** — e.g.
-*"Run an evaluation on `examples\retailpulse-eval` for Fabric workspace ABC"*. Any such trailing
+*"Run an evaluation on `examples\Lightweight` for Fabric workspace ABC"*. Any such trailing
 context (a workspace name, dataset, environment, tenant, time range, target tool, etc.) is part
 of the run and **must be forwarded verbatim to every answering sub-agent** so it can resolve the
 questions against the right target. Extra run context is **not** golden material — it is safe and
@@ -141,7 +141,7 @@ for that; penalize fabricated specifics.
 ## Formatting requirements for the report
 Match the structure in `docs/format-reference.md` exactly so reports are consistent and
 machine-comparable across runs. Use the example under
-`examples/retailpulse-eval/reports/` as the canonical layout.
+`examples/Lightweight/reports/` as the canonical layout.
 
 ## Guardrails
 - Never put `expected`, `assertions`, or other questions into an answering sub-agent's prompt.

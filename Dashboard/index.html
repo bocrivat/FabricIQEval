@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fabric IQ Eval — Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">◆</span>
+      <div>
+        <h1>Fabric IQ Eval</h1>
+        <p class="brand-sub">Evaluation history dashboard</p>
+      </div>
+    </div>
+
+    <div class="topbar-controls">
+      <label class="btn btn-primary" for="folderInput">
+        Choose eval folder…
+        <!-- webkitdirectory lets the user pick a whole folder tree; works over file:// -->
+        <input id="folderInput" type="file" webkitdirectory directory multiple hidden />
+      </label>
+      <span id="folderLabel" class="folder-label">No folder loaded</span>
+    </div>
+  </header>
+
+  <!-- Empty / intro state -->
+  <section id="intro" class="intro">
+    <div class="intro-card">
+      <h2>Point me at a folder of evals</h2>
+      <p>
+        Choose a folder that contains your eval suites. I'll scan every
+        <code>reports/eval-report-*.json</code> file inside it (at any depth) and build a
+        dashboard of your evaluation history.
+      </p>
+      <ol>
+        <li>Click <strong>Choose eval folder…</strong> above.</li>
+        <li>Select the folder that holds your suites (e.g. <code>examples</code> or a single suite folder).</li>
+        <li>Explore the <strong>Overview</strong> trends, then drill into <strong>Questions</strong>.</li>
+      </ol>
+      <p class="intro-note">
+        Everything runs locally in your browser — no files are uploaded anywhere.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main dashboard -->
+  <main id="dashboard" class="dashboard hidden">
+    <div class="toolbar">
+      <div class="toolbar-left">
+        <label class="field">
+          <span>Eval folder</span>
+          <select id="dirFilter"></select>
+        </label>
+        <nav class="tabs">
+          <button class="tab is-active" data-tab="overview">Overview</button>
+          <button class="tab" data-tab="questions">Questions</button>
+        </nav>
+      </div>
+      <div id="skipNote" class="skip-note"></div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <section id="view-overview" class="view">
+      <div id="kpis" class="kpis"></div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Score &amp; pass-rate over time</h3>
+          <div class="legend">
+            <span class="legend-item"><i class="swatch swatch-score"></i>Avg score</span>
+            <span class="legend-item"><i class="swatch swatch-pass"></i>Pass rate %</span>
+          </div>
+        </div>
+        <div id="trendChart" class="chart"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h3>Latest run — by suite</h3></div>
+        <div id="suiteTable" class="table-wrap"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h3>All runs</h3></div>
+        <div id="runsTable" class="table-wrap"></div>
+      </div>
+    </section>
+
+    <!-- QUESTIONS -->
+    <section id="view-questions" class="view hidden">
+      <div class="q-controls">
+        <label class="field">
+          <span>Run</span>
+          <select id="runSelect"></select>
+        </label>
+        <label class="field grow">
+          <span>Search</span>
+          <input id="qSearch" type="search" placeholder="Filter by id or question text…" />
+        </label>
+        <label class="checkfield">
+          <input id="failOnly" type="checkbox" />
+          <span>Failures only</span>
+        </label>
+      </div>
+      <div id="questionsList" class="questions"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

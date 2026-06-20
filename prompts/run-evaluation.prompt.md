@@ -13,14 +13,14 @@ semantic models, dashboards, soon the rest of Fabric up to Ontologies) but is to
 
 Running over a folder of eval files:
 
-> Run an evaluation on `examples\retailpulse-eval`.
+> Run an evaluation on `examples\Lightweight`.
 
 Running over a specific eval file:
 
-> Run an evaluation on @examples\retailpulse-eval\conversation.eval.yaml
+> Run an evaluation on @examples\Lightweight\conversation.eval.yaml
 
 Passing extra run context (forwarded to the answering sub-agents):
 
-> Run an evaluation on `examples\retailpulse-eval` for Fabric workspace ABC.
+> Run an evaluation on `examples\Lightweight` for Fabric workspace ABC.
 
 See `docs/format-reference.md` for the eval-file and report schemas.

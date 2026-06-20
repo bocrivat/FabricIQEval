@@ -32,7 +32,7 @@ Avg Length of Stay ≈0.64 days).
 
 ## How to run
 
-> Run an evaluation on `my-evaluation-suites\zhn-dashboard-update`
+> Run an evaluation on `examples\zhn-dashboard-update`
 
 The `eval-runner` agent discovers `seq-capacity-drilldown.eval.yaml`, executes the
 conversation in one shared session, scores each turn, and writes a timestamped report into

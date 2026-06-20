@@ -150,9 +150,9 @@ are scoring checks, never instructions to the answerer.
 
 ## Example: a real run
 
-[`examples/retailpulse-eval/`](examples/retailpulse-eval/) is a complete suite with a sample
+[`examples/Lightweight/`](examples/Lightweight/) is a complete suite with a sample
 report. A generated suite for a hospital-operations dashboard
-([`my-evaluation-suites/zhn-dashboard-update/`](my-evaluation-suites/zhn-dashboard-update/)) opens
+([`examples/zhn-dashboard-update/`](examples/zhn-dashboard-update/)) opens
 the report and drills from headline KPIs into a single unit across 8 turns — scoring **8/8, avg
 97.5**, with a couple of points docked only for rounding `0.64 days` to `0.6`. The judge reads
 intent, not strings: it credits a correct report ID even when the answer also returns a second
@@ -171,7 +171,8 @@ match, then explains the deduction in the rationale.
 | `.github/skills/run-eval/SKILL.md`       | Routes "run an evaluation" → the runner.                        |
 | `prompts/`                               | Copy-paste prompts to author or run a suite.                    |
 | `my-evaluation-suites/`                  | Generated suites land here (one folder per suite).              |
-| `examples/retailpulse-eval/`             | Complete example suite + sample report.                         |
+| `examples/Lightweight/`                  | Complete example suite + sample report.                         |
+| `Dashboard/`                             | Static, no-backend web UI for browsing evaluation history.      |
 
 ---
 
@@ -188,10 +189,42 @@ you can track quality trends across changes.
 
 ---
 
+## Dashboard
+
+The append-only `.json` reports are easy to diff but hard to *read* across many runs. The
+[`Dashboard/`](Dashboard/) folder is a **pure client-side web UI** (no backend, no build step, no
+dependencies) that turns that history into a browsable dashboard.
+
+**Run it:** open `Dashboard/index.html` in a Chromium-based browser (Chrome/Edge), click
+**Choose eval folder…**, and pick a folder of suites (e.g. `examples`, or a single suite folder).
+It recursively reads every `reports/eval-report-*.json` sidecar **locally in your browser** —
+nothing is uploaded. (It uses a directory `<input>`, so it works even when the page is opened
+straight from disk via `file://`.)
+
+**What it shows:**
+
+- **Overview (aggregate, default)** — KPI cards (runs, latest average score, pass rate, question
+  counts) with deltas vs the previous run, a **score & pass-rate-over-time** line chart showing how
+  evaluations evolve across runs, plus per-suite and all-runs tables.
+- **Questions (drill-down)** — pick a run, search, or filter to failures-only. Each question shows
+  its score, pass/fail, and a sparkline of its score across runs; expand it to see the **rationale**,
+  **expected vs actual**, every **assertion** with an individual ✓/✗, and a per-question
+  score-history chart across all runs.
+
+Use the **Eval folder** dropdown to scope to one suite or view all history together. See
+[`Dashboard/README.md`](Dashboard/README.md) for details.
+
+| Suite over time | Questions over time |
+|---|---|
+| ![Suite](docs/Dashboard1.png) | ![Questions](docs/Dashboard2.png) |
+
+---
+
 ## Roadmap
 
 - ✅ **`generate-eval`** — authors grounded suites for a Power BI report or semantic model by
   inspecting the live object and querying it for real expected answers.
+- ✅ **`dashboard`** — JSON eval results visualization.
 - 🔜 Extend generation to additional Fabric inputs — existing docs, transcripts, and more object
   types up to **ontologies** and **data agents**. The formats here are designed to support these
   with no framework changes.
