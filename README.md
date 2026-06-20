@@ -91,7 +91,7 @@ protocol. Only safe "extra run context" (e.g. a workspace name) is ever forwarde
 > Installation/clone instructions go here once the repo is public.
 
 1. **Author a suite** — hand-write `*.eval.yaml` files in a folder (see
-   [`examples/retailpulse-eval/`](examples/retailpulse-eval/)), or let Copilot bootstrap one for
+   [`examples/Lightweight/`](examples/Lightweight/)), or let Copilot bootstrap one for
    you. In GitHub Copilot CLI:
 
    ```text
@@ -105,7 +105,7 @@ protocol. Only safe "extra run context" (e.g. a workspace name) is ever forwarde
 2. **Run it:**
 
    ```text
-   Run an evaluation on examples\retailpulse-eval
+   Run an evaluation on examples\Lightweight
    ```
 
    You can append extra run context, e.g. *"…for Fabric workspace Contoso"* — it's forwarded to

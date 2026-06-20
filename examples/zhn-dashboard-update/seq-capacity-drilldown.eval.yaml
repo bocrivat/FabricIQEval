@@ -16,10 +16,10 @@ turns:
       Find the Power BI report named "ZHN-Dashboard_update" in the workspace "ZHN-Operations"
       and tell me its report ID.
     expected: >
-      Identifies the report and reports its ID f2184c01-51d2-49f5-a1ba-c9c9976518a9 in the
-      ZHN-Operations workspace (workspace ID 17ef0e11-e0bc-4745-a9bf-3a9b140ee203).
+      Identifies the report and reports its ID f2184c01-51d2-49f5-a1ba-111111111111 in the
+      ZHN-Operations workspace (workspace ID 17ef0e11-e0bc-4745-a9bf-222222222222).
     assertions:
-      - "Must include this report ID: f2184c01-51d2-49f5-a1ba-c9c9976518a9"
+      - "Must include this report ID: f2184c01-51d2-49f5-a1ba-111111111111"
       - "Identifies the workspace as ZHN-Operations"
     tags: [find, structure]
 

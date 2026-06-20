@@ -10,16 +10,16 @@ defaults:
 turns:
   - id: q-find-workspace
     question: "Find the workspace FabricIQEvalSample and show me the ID"
-    expected: "Found it, ID:  e9fb55c2-dddb-4f40-9767-888542110087."
+    expected: "Found it, ID:  e9fb55c2-dddd-aaaa-bbbb-123412341234."
     assertions:
-      - "Must include this workspace ID:  e9fb55c2-dddb-4f40-9767-888542110087"
+      - "Must include this workspace ID:  e9fb55c2-dddd-aaaa-bbbb-123412341234"
     tags: [workspace, find]
 
   - id: q-find-report
     question: "Find me the report named Retail Pulse in the same workspace and show me the ID"
-    expected: "Report: Retail Pulse, ID: c5c2fbc8-ce42-4ebf-9dd1-20c19c3f62ec"
+    expected: "Report: Retail Pulse, ID: e9fb55c2-dddd-aaaa-bbbb-123412341235"
     assertions:
-      - "Must include this report ID: c5c2fbc8-ce42-4ebf-9dd1-20c19c3f62ec"
+      - "Must include this report ID: e9fb55c2-dddd-aaaa-bbbb-123412341235"
     tags: [report, find]
 
   - id: q-count-visuals
