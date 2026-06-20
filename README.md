@@ -29,6 +29,10 @@ A confident wrong answer is worse than no answer. This project lets you verify F
 you'd regression-test anything you depend on: repeatedly, automatically, against known-good
 answers.
 
+![FabricIQ](docs/FabricIQ.png "FabricIQ structure")
+
+
+
 Because the **Fabric IQ agentic interface is unified**, you don't have to test inside M365
 Copilot itself — you can drive the *same* Fabric IQ skills and tools from **GitHub Copilot CLI**
 and run your evaluations there. Each host has its own system prompt and extra context, so their
@@ -200,3 +204,4 @@ Issues and pull requests welcome. The schema in `docs/format-reference.md` is th
 both file types — please keep generated and hand-written files conformant to it.
 
 <!-- Add LICENSE and CONTRIBUTING references here. -->
+
