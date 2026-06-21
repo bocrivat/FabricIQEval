@@ -1,0 +1,6 @@
+# Ignore all generated evaluation suites except the tracked placeholder file
+my-evaluation-suites/**
+!my-evaluation-suites/placeholder.txt
+
+# Ignore local VS Code settings
+.vscode/
